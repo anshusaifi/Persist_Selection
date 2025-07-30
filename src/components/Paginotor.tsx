@@ -1,14 +1,18 @@
-import * as React from 'react';
-import { useEffect , useState } from 'react';
+
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-export default function BasicPagination({page,setPage}) {
+type Props = {
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+};
+
+export default function BasicPagination({page,setPage}:Props) {
 
     
     
     console.log("inside App.tsx page value>> "+ page);
-    const handleChange = (e,value)=>{
+    const handleChange = (_e: React.ChangeEvent<unknown>, value: number)=>{
       
       setPage(value);
     //   console.log("current page " + value)

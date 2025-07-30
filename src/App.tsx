@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import CheckboxRowSelectionDemo from "./components/Table";
 import BasicPagination from './components/Paginotor';
-import BasicDemo from './components/Overlay';
+import type { Artwork } from './type';
+
 
 function App() {
   const [page, setPage] = useState(1);         
-  const [data, setData] = useState([]);        
+  const [data, setData] =  useState<Artwork[]>([]);        
 
-  const fetchdata = async (page) => {
+  const fetchdata = async (page:number):Promise<{ data: Artwork[] }> => {
     const response = await fetch(`https://api.artic.edu/api/v1/artworks?page=${page}`);
     const jsondata = await response.json();
     return jsondata;

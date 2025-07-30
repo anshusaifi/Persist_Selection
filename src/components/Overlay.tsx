@@ -1,7 +1,15 @@
-import { useState } from "react";
-import React from "react";
 
-export default function Overlay({setSelectedProducts, setShowOverlay , data, fetchExtraSelectRows }) {
+import React from "react";
+import type { Artwork } from "../type";
+type OverlayProps = {
+  
+ setSelectedProducts: React.Dispatch<React.SetStateAction<Artwork[]>>;
+  setShowOverlay: React.Dispatch<React.SetStateAction<boolean>>;
+  data: Artwork[];
+  fetchExtraSelectRows: (count: number) => Promise<void>;
+};
+
+export default function Overlay({ setShowOverlay , fetchExtraSelectRows }:OverlayProps) {
   const [inputValue, setInputValue] = React.useState("");
   
 
@@ -21,7 +29,7 @@ export default function Overlay({setSelectedProducts, setShowOverlay , data, fet
   };
 
   return (
-    <div className="absolute top-24 left-24 bg-white border border-gray-300 shadow-md rounded p-4 z-50 w-56">
+    <div className="absolute top-32 left-24 bg-white border border-gray-300 shadow-md rounded p-4 z-50 w-56">
       <input
         type="number"
         placeholder="Enter row count"

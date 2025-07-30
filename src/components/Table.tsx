@@ -1,14 +1,32 @@
-import { useState, useEffect } from "react";
-import { ChevronDown, CurrencyIcon } from "lucide-react";
-import BasicPagination from "./Paginotor";
+import { useState} from "react";
+import { ChevronDown} from "lucide-react";
+
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { InputSwitch } from "primereact/inputswitch";
+
 import Overlay from "./Overlay";
 
-export default function CheckboxRowSelectionDemo({ data , fetchdata , setData , setPage , page}) {
-  const [selectedProducts, setSelectedProducts] = useState(null);
-  const [rowClick, setRowClick] = useState(false);
+type Artwork = {
+  id: number;
+  title: string;
+  classification_title: string;
+  date_start?: number;
+  date_end?: number;
+};
+
+type Props = {
+  data: Artwork[];
+  fetchdata: (page: number) => Promise<{ data: Artwork[] }>;
+  setData: React.Dispatch<React.SetStateAction<Artwork[]>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  page: number;
+};
+
+
+
+export default function CheckboxRowSelectionDemo({ data , fetchdata, setData , setPage , page}:Props) {
+  const [selectedProducts, setSelectedProducts] = useState<any[]>([]);
+  // const [rowClick, setRowClick] = useState(false);
   const [showOverlay , setShowOverlay] = useState(false);
 
   function handleOverlay(){
@@ -16,7 +34,7 @@ export default function CheckboxRowSelectionDemo({ data , fetchdata , setData , 
     
   }
  
-  const fetchExtraSelectRows = async (count) => {
+  const fetchExtraSelectRows = async (count:number) => {
     console.log("inside fetchExtraSeletRows")
     let allRows = [...data];
     console.log("allRows>> ",allRows)
@@ -47,9 +65,9 @@ export default function CheckboxRowSelectionDemo({ data , fetchdata , setData , 
         </div>
         <DataTable
           value={data}
-          selectionMode={rowClick ? null : "checkbox"}
+          selectionMode={"checkbox"}
           selection={selectedProducts}
-          onSelectionChange={(e) => setSelectedProducts(e.value)}
+          onSelectionChange={(e : any) => setSelectedProducts(e.value)}
           dataKey="id"
           tableStyle={{ minWidth: "50rem" }}
         >
